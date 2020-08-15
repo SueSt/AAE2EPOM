@@ -1,5 +1,7 @@
 package com.qa.hubspot.testcases;
 
+import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ISelect;
 import org.testng.Assert;
@@ -11,13 +13,18 @@ import com.qa.hubspot.Utils.Constants;
 import com.qa.hubspot.base.BasePage;
 import com.qa.hubspot.pages.LoginPage;
 
-public class LoginPageTest extends BasePage {
+public class LoginPageTest {
 
+	WebDriver driver;
+	BasePage basePage;
 	LoginPage lgPage;
-
+	Properties prop;
+	
 	@BeforeTest
 	public void setUp() {
-		driver=	init_driver("chrome");
+		basePage= new BasePage();
+		prop= basePage.init_prop();
+		driver=	basePage.init_driver(prop);
 		lgPage= new LoginPage(driver);
 		
 	}
@@ -26,7 +33,7 @@ public class LoginPageTest extends BasePage {
 	public void verifyLoginPageTitleTest() {
 		String title= lgPage.getLoginPageTitle();
 		System.out.println("login page title is: "+ title);
-		Assert.assertEquals(title, Constants.LOGIN_PAGE_TITLE, "LoginPage title ISelect not matched...");
+		Assert.assertEquals(title, Constants.LOGIN_PAGE_TITLE, "LoginPage title is not matched...");
 		
 	}
 	
@@ -38,7 +45,7 @@ public class LoginPageTest extends BasePage {
 	
 	@Test(priority=3)
 	public void doLoginTest() {
-		lgPage.doLogin("suest2020@gmail.com", "Sue@1234");
+		lgPage.doLogin(prop.getProperty("username"), prop.getProperty("password"));
 		
 	}
 	

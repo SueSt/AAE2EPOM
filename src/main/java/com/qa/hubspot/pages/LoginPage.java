@@ -28,20 +28,14 @@ public class LoginPage extends BasePage{
 		return driver.findElement(signUpLink).isDisplayed();
 	}
 	
-	public void doLogin (String username, String password) {
+	public HomePage doLogin (String username, String password) {
 		driver.findElement(this.username).sendKeys(username);
 		driver.findElement(this.password).sendKeys(password);
 		driver.findElement(loginButton).click();
 		
+		return new HomePage(driver);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 }

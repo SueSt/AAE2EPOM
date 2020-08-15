@@ -22,7 +22,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BasePage {
 
-	public WebDriver driver;
+	public static WebDriver driver;
 	public Properties prop;
 	
 /**
@@ -31,7 +31,9 @@ public class BasePage {
  * @return driver
  */
 	
-	public WebDriver init_driver(String browserName) {
+	public WebDriver init_driver(Properties prop) {
+		String browserName= prop.getProperty("browser");
+		
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
 			driver= new ChromeDriver();
@@ -56,7 +58,7 @@ public class BasePage {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		
-		driver.get("https://app.hubspot.com/login");
+		driver.get(prop.getProperty("url"));
 		
 		return driver;
 		
